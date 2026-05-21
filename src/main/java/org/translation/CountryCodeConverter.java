@@ -39,7 +39,6 @@ public class CountryCodeConverter {
             List<String> lines = Files.readAllLines(Paths.get(getClass()
                     .getClassLoader().getResource(filename).toURI()));
 
-            // TODO Task: use lines to populate the instance variable(s)
 
             int size= lines.size();
             names=new String[size];
@@ -71,7 +70,6 @@ public class CountryCodeConverter {
      * @return the name of the country corresponding to the code
      */
     public String fromCountryCode(String code) {
-        // TODO Task: update this code to use an instance variable to return the correct value
         int index = Arrays.asList(alpha_3).indexOf(code);
         if(index == -1){
             return("error");
@@ -85,7 +83,6 @@ public class CountryCodeConverter {
      * @return the 3-letter code of the country
      */
     public String fromCountry(String country) {
-        // TODO Task: update this code to use an instance variable to return the correct value
         int index = Arrays.asList(names).indexOf(country);
         if(index == -1){
             return("error");
