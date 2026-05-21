@@ -4,10 +4,9 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
+import java.util.*;
 // TODO CheckStyle: Wrong lexicographical order for 'java.util.HashMap' import (remove this comment once resolved)
-import java.util.HashMap;
-import java.util.Map;
+
 
 /**
  * This class provides the service of converting country codes to their names.
@@ -15,6 +14,11 @@ import java.util.Map;
 public class CountryCodeConverter {
 
     // TODO Task: pick appropriate instance variable(s) to store the data necessary for this class
+    public String[] names ;
+    public String[] alpha_2;
+    public String[] alpha_3;
+    public String[] numeric;
+
 
     /**
      * Default constructor which will load the country codes from "country-codes.txt"
@@ -37,6 +41,23 @@ public class CountryCodeConverter {
 
             // TODO Task: use lines to populate the instance variable(s)
 
+            int size= lines.size();
+            names=new String[size];
+            alpha_2=new String[size];
+            alpha_3=new String[size];
+            numeric=new String[size];
+
+
+            for(int i = 0; i < size; i++){
+                String b;
+                String[] parts = lines.get(i).split("\t");
+
+                names[i] = parts[0];
+                alpha_2[i] = parts[1];
+                alpha_3[i] = parts[2];
+                numeric[i] = parts[3];
+
+            }
         }
         catch (IOException | URISyntaxException ex) {
             throw new RuntimeException(ex);
@@ -51,7 +72,11 @@ public class CountryCodeConverter {
      */
     public String fromCountryCode(String code) {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return code;
+        int index = Arrays.asList(alpha_3).indexOf(code);
+        if(index == -1){
+            return("error");
+        }
+        return names[index];
     }
 
     /**
@@ -61,7 +86,11 @@ public class CountryCodeConverter {
      */
     public String fromCountry(String country) {
         // TODO Task: update this code to use an instance variable to return the correct value
-        return country;
+        int index = Arrays.asList(names).indexOf(country);
+        if(index == -1){
+            return("error");
+        }
+        return alpha_3[index];
     }
 
     /**
@@ -69,7 +98,6 @@ public class CountryCodeConverter {
      * @return how many countries are included in this code converter.
      */
     public int getNumCountries() {
-        // TODO Task: update this code to use an instance variable to return the correct value
-        return 0;
+        return names.length;
     }
 }
